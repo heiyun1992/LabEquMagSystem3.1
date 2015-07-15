@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE configuration 
+PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- Entities 参数实体 com.comverse.timesheet.web.bean 包中的 所有Bean, 取个别名 比如TestTable类就用Test来表示 -->
+		<typeAlias type="com.mao.pojo.Admin" alias="Admin" />
+		<typeAlias type="com.mao.pojo.Equipment" alias="Equipment" />
+		<typeAlias type="com.mao.pojo.LoanEquipment" alias="LoanEquipment" />
+		<typeAlias type="com.mao.pojo.LoanHistory" alias="LoanHistory" />
+		<typeAlias type="com.mao.pojo.StateEquipment" alias="StateEquipment" />
+		<typeAlias type="com.mao.pojo.Teacher" alias="Teacher" />		
+
+	</typeAliases>
+</configuration>

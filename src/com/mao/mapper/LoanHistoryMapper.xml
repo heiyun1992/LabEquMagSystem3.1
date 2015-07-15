@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mao.dao.LoanHistoryDao">
+	<resultMap id="LoanHistoryResultMap" type="LoanHistory">
+		<id column="lhid" property="id" jdbcType="INTEGER" />
+		<result column="equipment_id" property="equipment_id" jdbcType="INTEGER" />
+		<result column="teacher_id" property="teacher_id" jdbcType="INTEGER" />
+		<result column="admin_id" property="admin_id" jdbcType="INTEGER" /> 
+		<result column="loan_date" property="loan_date" jdbcType="VARCHAR" />		
+		<result column="created_at" property="return_date" jdbcType="TIMESTAMP" />	
+		<association property="equipment" javaType="com.mao.pojo.Equipment"	resultMap="equipmentResultMap" />
+		<association property="admin" javaType="com.mao.pojo.Admin" resultMap="adminResultMap"/>	
+		<association property="teacher" javaType="com.mao.pojo.Teacher" resultMap="teacherResultMap"/>	
+	</resultMap>
+	<resultMap id="equipmentResultMap" type="Equipment">
+		<id column="eid" property="id" jdbcType="INTEGER" />
+		<result column="ename" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="models" property="models" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="VARCHAR" />
+		<result column="vender" property="vender" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="purchase_date" property="purchase_date"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="adminResultMap" type="Admin">
+		<id column="aid" property="id" jdbcType="INTEGER" />
+		<result column="aname" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="role" property="role" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="teacherResultMap" type="Teacher">
+		<id column="tid" property="id" jdbcType="INTEGER" />
+		<result column="tname" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="teacher_num" property="teacher_num" jdbcType="INTEGER" />
+		<result column="phone_num" property="phone_num" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+<!-- 	<select id="getAllLoanEquipment" parameterType="int" resultMap="LoanEquipmentResultMap">
+		SELECT 
+			loan_equipment.id leid,
+			teacher.id tid,
+			teacher.name tname,
+			teacher.sex,
+			admin.id aid,
+			admin.role,
+			admin.name aname,
+			equipment.id eid,
+			equipment.name ename,
+			equipment.price,
+			equipment.vender,
+			equipment.type,
+			loan_date
+		FROM loan_equipment,equipment,admin,teacher
+			where loan_equipment.equipment_id=equipment.id and 
+				loan_equipment.admin_id=admin.id and 
+				   loan_equipment.teacher_id=teacher.id and loan_equipment.id=#{id}
+	</select> -->
+
+	<select id="getAllLoanHistory" resultMap="LoanHistoryResultMap">
+		SELECT
+			loan_history.id lhid,
+			teacher.id tid,
+			teacher.name tname,
+			teacher.sex,
+			admin.id aid,
+			admin.role,
+			admin.name aname,
+			equipment.id eid,
+			equipment.name ename,
+			equipment.price,
+			equipment.vender,
+			equipment.type,
+			loan_history.loan_date,
+			loan_history.created_at
+		FROM loan_history,equipment,admin,teacher
+		    where loan_history.equipment_id=equipment.id and loan_history.admin_id=admin.id and 
+		      loan_history.teacher_id=teacher.id
+	</select>
+		
+	
+	<!-- <select id="selectLoanEquipmentByPage" resultMap="LoanEquipmentResultMap">  
+ 		 select *  from loan_equipment limit #{startPos},#{pageSize}   
+ 		SELECT
+			loan_equipment.id leid,
+			teacher.id tid,
+			teacher.name tname,
+			teacher.sex,
+			admin.id aid,
+			admin.role,
+			admin.name aname,
+			equipment.id eid,
+			equipment.name ename,
+			equipment.price,
+			equipment.vender,
+			equipment.type,
+			loan_date
+		FROM loan_equipment,equipment,admin,teacher
+		    where loan_equipment.equipment_id=equipment.id and loan_equipment.admin_id=admin.id and 
+		      loan_equipment.teacher_id=teacher.id limit #{startPos},#{pageSize}  
+	</select>  
+	取得记录的总数  
+	<select id="getLoanEquipmentCount" resultType="long">  
+ 		 SELECT COUNT(*) FROM loan_equipment
+	</select>  -->
+
+</mapper> 
